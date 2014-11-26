@@ -8,26 +8,24 @@ import static java.math.BigDecimal.ROUND_HALF_UP;
 import static java.math.RoundingMode.UP;
 
 public class Product {
-    private final BigDecimal quantity;
-    private final String description;
-    private final BigDecimal price;
+    final BigDecimal quantity;
+    final String description;
+    final BigDecimal price;
+    final BigDecimal taxRate;
 
-    public Product(int quantity, String description, double price) {
-        this(new BigDecimal(quantity), description, new BigDecimal(price));
-    }
-
-    private Product(BigDecimal quantity, String description, BigDecimal price) {
+    Product(BigDecimal quantity, String description, BigDecimal price, BigDecimal taxRate) {
         this.quantity = quantity;
         this.description = description;
         this.price = price;
+        this.taxRate = taxRate;
     }
 
-    Product(Product wrapped) {
-        this(wrapped.quantity, wrapped.description, wrapped.price);
+    public Product(int quantity, String description, double price) {
+        this(new BigDecimal(quantity), description, new BigDecimal(price), new BigDecimal(10.0));
     }
 
     protected BigDecimal taxRate() {
-        return new BigDecimal(10);
+        return taxRate;
     }
 
     public BigDecimal totalPrice() {

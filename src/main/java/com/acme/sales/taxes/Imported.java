@@ -3,16 +3,7 @@ package com.acme.sales.taxes;
 import java.math.BigDecimal;
 
 public class Imported extends Product {
-    private final Product product;
-
-    public Imported(Product product) {
-        super(product);
-        this.product = product;
-    }
-
-    @Override
-    public BigDecimal taxRate() {
-        return new BigDecimal(5)
-                .add(product.taxRate());
+    public Imported(Product wrapped) {
+        super(wrapped.quantity, wrapped.description, wrapped.price, new BigDecimal(5).add(wrapped.taxRate()));
     }
 }
